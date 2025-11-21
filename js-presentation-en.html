@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals Presentation</title>
+    <link rel="icon" href="img/JavaScript.jpeg">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,sans-serif;background:#1a1a1a;overflow:hidden;height:100vh}
+        .presentation{width:100vw;height:100vh;position:relative}
+        .switch_to_fr {
+            background-color: #F7DF1E;
+            border-radius: 5px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+        .switch_to_fr a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .slide{width:100%;height:100%;position:absolute;top:0;left:0;display:none;padding:40px 60px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;overflow-y:auto}
+        .slide.active{display:flex;flex-direction:column;animation:fadeIn .4s}
+        @keyframes fadeIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+        .slide h1{font-size:2.8em;margin-bottom:15px;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
+        .slide h2{font-size:2em;margin-bottom:20px;color:#F7DF1E}
+        .slide h3{font-size:1.4em;margin:15px 0 10px;color:#FFE55C}
+        .slide p,.slide li{font-size:1.1em;line-height:1.6;margin-bottom:10px}
+        .slide ul{margin-left:30px}
+        .slide code{background:#282c34;padding:2px 6px;border-radius:4px;color:#e06c75;font-family:Consolas,Monaco,monospace}
+        .slide pre{background:#1e1e1e;padding:15px;border-radius:8px;margin:15px 0;border:2px solid #3e3e42;overflow-x:auto}
+        .slide pre code{background:none;color:#abb2bf;font-size:1em;display:block}
+        .keyword{color:#c678dd}.string{color:#98c379}.function{color:#61afef}.comment{color:#5c6370;font-style:italic}.number{color:#d19a66}.operator{color:#56b6c2}
+        .slide-title{background:linear-gradient(135deg,#F7DF1E 0%,#FFA500 100%);color:#323330;text-align:center;align-items:center;justify-content:center}
+        .slide-title h1{color:#323330;font-size:3em}
+        .two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:15px}
+        table{width:100%;border-collapse:collapse;margin:15px 0;background:rgba(255,255,255,.1);border-radius:8px;overflow:hidden;font-size:.95em}
+        table th,table td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.2)}
+        table th{background:rgba(0,0,0,.3)}
+        .nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:1000}
+        .nav-btn{background:#F7DF1E;color:#323330;border:none;padding:12px 25px;font-size:1em;border-radius:8px;cursor:pointer;font-weight:bold;transition:all .3s}
+        .nav-btn:hover{background:#FFE55C;transform:translateY(-2px)}
+        .nav-btn:disabled{background:#666;cursor:not-allowed;opacity:.5}
+        .counter{position:fixed;top:20px;right:20px;background:rgba(0,0,0,.5);color:#fff;padding:8px 16px;border-radius:15px;font-size:1em;z-index:1000}
+        .box{background:rgba(255,255,255,.1);padding:15px;border-radius:8px;border-left:4px solid #F7DF1E;margin:10px 0}
+        .slide-code{background:linear-gradient(135deg,#1e1e1e 0%,#2d2d30 100%)}
+        .slide-practice{background:linear-gradient(135deg,#00b894 0%,#00cec9 100%)}
+        .slide-tips{background:linear-gradient(135deg,#fdcb6e 0%,#e17055 100%)}
+        .slide-jquery{background:linear-gradient(135deg,#0769AD 0%,#1E90FF 100%)}
+        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:15px}
+        .card{background:rgba(0,0,0,.2);padding:15px;border-radius:8px;text-align:center}
+        .card h4{color:#F7DF1E;margin-bottom:8px}
+        footer{position:fixed;bottom:0;width:100%;background:rgba(0, 0, 0, 0.192);color:#fff;text-align:center;padding:10px 0;font-size:.9em}
+        footer a{color:#FFD700;text-decoration:none}
+    </style>
+</head>
+<body>
+    <div class="switch_to_fr">
+        <a href="index.html">Passer en français 🇫🇷</a>
+    </div>
+<div class="presentation">
+    <!-- Slide 1: Title -->
+    <div class="slide slide-title active">
+        <h1>🧠 Mastering JavaScript Fundamentals</h1>
+        <p style="font-size:1.4em;margin-top:20px">A Step-by-Step Guide to Interactive Web Development</p>
+        <p style="margin-top:30px;font-size:1.1em">Including ES6+, Error Handling & jQuery</p>
+    </div>
+
+    <!-- Slide 2: What is JavaScript -->
+    <div class="slide">
+        <h2>📌 What is JavaScript?</h2>
+        <div class="two-col">
+            <div>
+                <p><strong>JavaScript (JS)</strong> is a programming language primarily used in websites to make pages <strong>interactive</strong>:</p>
+                <ul>
+                    <li>Animate elements</li>
+                    <li>Respond to clicks & inputs</li>
+                    <li>Create games & dynamic forms</li>
+                    <li>Fetch data from servers</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>🧩 The Web Analogy</h3>
+                <p>🏗️ <strong>HTML</strong> = Skeleton (structure)</p>
+                <p>🎨 <strong>CSS</strong> = Clothes (style)</p>
+                <p>🧠 <strong>JavaScript</strong> = Brain (interactivity)</p>
+                <img src="img/img_webpage_structure.jpeg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: How to Run JS -->
+    <div class="slide">
+        <h2>🚀 How to Write & Run JavaScript</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h4>Browser Console</h4>
+                <p>Right-click → Inspect → Console tab</p>
+            </div>
+            <div class="card">
+                <h4>HTML File</h4>
+                <p>Add <code>&lt;script&gt;</code> tags</p>
+            </div>
+            <div class="card">
+                <h4>Online Editors</h4>
+                <p>CodePen, JSFiddle, JSBin</p>
+            </div>
+        </div>
+        <pre><code><span class="comment">// Method 2: In HTML file</span>
+&lt;script&gt;
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">'Hello from JavaScript!'</span>);
+&lt;/script&gt;
+
+<span class="comment">// Or external file</span>
+&lt;script src=<span class="string">"script.js"</span>&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <!-- Slide 4: Variables -->
+    <div class="slide slide-code">
+        <h2>🧺 Variables - Storing Values</h2>
+        <pre><code><span class="keyword">let</span> name = <span class="string">"Alex"</span>;           <span class="comment">// Text (string)</span>
+<span class="keyword">let</span> age = <span class="number">20</span>;                <span class="comment">// Number</span>
+<span class="keyword">let</span> isStudent = <span class="keyword">true</span>;        <span class="comment">// Boolean</span>
+<span class="keyword">let</span> items = [<span class="string">"a"</span>, <span class="string">"b"</span>];       <span class="comment">// Array</span>
+<span class="keyword">let</span> person = {name: <span class="string">"Jo"</span>};   <span class="comment">// Object</span></code></pre>
+        <div class="two-col" style="margin-top:20px">
+            <div class="box">
+                <p><code>let</code> = Reassignable variable</p>
+                <p><code>const</code> = Constant (cannot reassign)</p>
+                <p><code>var</code> = Old keyword (avoid)</p>
+            </div>
+            <div class="box">
+                <h4>Naming Rules</h4>
+                <p>• Start with letter, _, or $</p>
+                <p>• Case-sensitive</p>
+                <p>• Use camelCase convention</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Data Types -->
+    <div class="slide">
+        <h2>📢 Data Types</h2>
+        <table>
+            <tr><th>Type</th><th>Example</th><th>Description</th></tr>
+            <tr><td><strong>String</strong></td><td><code>"Hello"</code>, <code>'World'</code></td><td>Text</td></tr>
+            <tr><td><strong>Number</strong></td><td><code>10</code>, <code>3.14</code></td><td>Integer or decimal</td></tr>
+            <tr><td><strong>Boolean</strong></td><td><code>true</code>, <code>false</code></td><td>True or False</td></tr>
+            <tr><td><strong>null</strong></td><td><code>null</code></td><td>Intentionally empty</td></tr>
+            <tr><td><strong>undefined</strong></td><td><code>undefined</code></td><td>Not yet defined</td></tr>
+            <tr><td><strong>Symbol</strong></td><td><code>Symbol('id')</code></td><td>Unique identifier</td></tr>
+            <tr><td><strong>BigInt</strong></td><td><code>9007199254740991n</code></td><td>Large integers</td></tr>
+        </table>
+        <pre><code><span class="keyword">typeof</span> <span class="string">"hello"</span>  <span class="comment">// "string"</span>
+<span class="keyword">typeof</span> <span class="number">42</span>       <span class="comment">// "number"</span>
+<span class="keyword">typeof</span> <span class="keyword">true</span>     <span class="comment">// "boolean"</span></code></pre>
+    </div>
+
+    <!-- Slide 6: Operators -->
+    <div class="slide slide-code">
+        <h2>➕ Operators</h2>
+        <div class="two-col">
+            <div>
+                <h3>Arithmetic</h3>
+                <pre><code><span class="number">5</span> <span class="operator">+</span> <span class="number">3</span>   <span class="comment">// 8 (add)</span>
+<span class="number">10</span> <span class="operator">-</span> <span class="number">2</span>  <span class="comment">// 8 (subtract)</span>
+<span class="number">2</span> <span class="operator">*</span> <span class="number">4</span>   <span class="comment">// 8 (multiply)</span>
+<span class="number">16</span> <span class="operator">/</span> <span class="number">2</span>  <span class="comment">// 8 (divide)</span>
+<span class="number">2</span> <span class="operator">**</span> <span class="number">3</span>  <span class="comment">// 8 (power)</span>
+<span class="number">10</span> <span class="operator">%</span> <span class="number">3</span>  <span class="comment">// 1 (modulo)</span></code></pre>
+            </div>
+            <div>
+                <h3>Assignment</h3>
+                <pre><code><span class="keyword">let</span> x = <span class="number">5</span>;
+x <span class="operator">+=</span> <span class="number">3</span>;  <span class="comment">// x = 8</span>
+x <span class="operator">-=</span> <span class="number">2</span>;  <span class="comment">// x = 6</span>
+x <span class="operator">*=</span> <span class="number">2</span>;  <span class="comment">// x = 12</span>
+x<span class="operator">++</span>;     <span class="comment">// x = 13</span>
+x<span class="operator">--</span>;     <span class="comment">// x = 12</span></code></pre>
+            </div>
+        </div>
+        <h3>String Concatenation & Template Literals</h3>
+        <pre><code><span class="keyword">let</span> name = <span class="string">"Lina"</span>;
+<span class="keyword">let</span> msg1 = <span class="string">"Hello, "</span> <span class="operator">+</span> name;           <span class="comment">// Concatenation</span>
+<span class="keyword">let</span> msg2 = <span class="string">`Hello, ${name}!`</span>;          <span class="comment">// Template literal (ES6)</span></code></pre>
+    </div>
+
+    <!-- Slide 7: Comparison & Logical -->
+    <div class="slide">
+        <h2>🔍 Comparison & Logical Operators</h2>
+        <div class="two-col">
+            <div>
+                <h3>Comparison</h3>
+                <table>
+                    <tr><td><code>==</code></td><td>Equal (value)</td><td><code>5 == "5"</code> ✅</td></tr>
+                    <tr><td><code>===</code></td><td>Strict equal</td><td><code>5 === "5"</code> ❌</td></tr>
+                    <tr><td><code>!=</code></td><td>Not equal</td><td><code>5 != 6</code> ✅</td></tr>
+                    <tr><td><code>!==</code></td><td>Strict not equal</td><td><code>5 !== "5"</code> ✅</td></tr>
+                    <tr><td><code>&gt; &lt; &gt;= &lt;=</code></td><td>Comparisons</td><td><code>8 > 6</code> ✅</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>Logical</h3>
+                <pre><code><span class="comment">// AND - both must be true</span>
+<span class="keyword">true</span> <span class="operator">&&</span> <span class="keyword">true</span>   <span class="comment">// true</span>
+
+<span class="comment">// OR - at least one true</span>
+<span class="keyword">true</span> <span class="operator">||</span> <span class="keyword">false</span>  <span class="comment">// true</span>
+
+<span class="comment">// NOT - inverts value</span>
+<span class="operator">!</span><span class="keyword">true</span>          <span class="comment">// false</span></code></pre>
+                <div class="box">
+                    <p>💡 Always use <code>===</code> and <code>!==</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Conditionals -->
+    <div class="slide slide-code">
+        <h2>⚖️ Conditional Statements</h2>
+        <div class="two-col">
+            <div>
+                <h3>if / else if / else</h3>
+                <pre><code><span class="keyword">let</span> score = <span class="number">85</span>;
+
+<span class="keyword">if</span> (score <span class="operator">>=</span> <span class="number">90</span>) {
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"A"</span>);
+} <span class="keyword">else if</span> (score <span class="operator">>=</span> <span class="number">80</span>) {
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"B"</span>);
+} <span class="keyword">else</span> {
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"C"</span>);
+}</code></pre>
+            </div>
+            <div>
+                <h3>Ternary Operator</h3>
+                <pre><code><span class="keyword">let</span> age = <span class="number">18</span>;
+<span class="keyword">let</span> status = age <span class="operator">>=</span> <span class="number">18</span> 
+    <span class="operator">?</span> <span class="string">"Adult"</span> 
+    <span class="operator">:</span> <span class="string">"Minor"</span>;</code></pre>
+                <h3>Switch Statement</h3>
+                <pre><code><span class="keyword">switch</span>(day) {
+    <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">return</span> <span class="string">"Mon"</span>;
+    <span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">return</span> <span class="string">"Tue"</span>;
+    <span class="keyword">default</span>: <span class="keyword">return</span> <span class="string">"?"</span>;
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Functions -->
+    <div class="slide slide-code">
+        <h2>🧩 Functions - Reusable Code</h2>
+        <pre><code><span class="comment">// Function Declaration</span>
+<span class="keyword">function</span> <span class="function">greet</span>(name) {
+    <span class="keyword">return</span> <span class="string">`Hello, ${name}!`</span>;
+}
+
+<span class="comment">// Function Expression</span>
+<span class="keyword">const</span> <span class="function">add</span> = <span class="keyword">function</span>(a, b) {
+    <span class="keyword">return</span> a <span class="operator">+</span> b;
+};
+
+<span class="comment">// Arrow Function (ES6)</span>
+<span class="keyword">const</span> <span class="function">multiply</span> = (a, b) <span class="operator">=></span> a <span class="operator">*</span> b;
+
+<span class="comment">// Default Parameters</span>
+<span class="keyword">const</span> <span class="function">welcome</span> = (name = <span class="string">"Guest"</span>) <span class="operator">=></span> <span class="string">`Hi, ${name}`</span>;</code></pre>
+        <div class="box">
+            <p>💡 Arrow functions don't have their own <code>this</code> context</p>
+        </div>
+    </div>
+
+    <!-- Slide 10: Loops -->
+    <div class="slide slide-code">
+        <h2>🔁 Loops - Repeating Actions</h2>
+        <div class="two-col">
+            <div>
+                <h3>for Loop</h3>
+                <pre><code><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i <span class="operator"><</span> <span class="number">5</span>; i<span class="operator">++</span>) {
+    <span class="keyword">console</span>.<span class="function">log</span>(i);
+}
+<span class="comment">// 0, 1, 2, 3, 4</span></code></pre>
+                <h3>while Loop</h3>
+                <pre><code><span class="keyword">let</span> i = <span class="number">0</span>;
+<span class="keyword">while</span> (i <span class="operator"><</span> <span class="number">3</span>) {
+    <span class="keyword">console</span>.<span class="function">log</span>(i<span class="operator">++</span>);
+}</code></pre>
+            </div>
+            <div>
+                <h3>for...of (Arrays)</h3>
+                <pre><code><span class="keyword">const</span> arr = [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>];
+<span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> arr) {
+    <span class="keyword">console</span>.<span class="function">log</span>(item);
+}</code></pre>
+                <h3>for...in (Objects)</h3>
+                <pre><code><span class="keyword">const</span> obj = {x: <span class="number">1</span>, y: <span class="number">2</span>};
+<span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> obj) {
+    <span class="keyword">console</span>.<span class="function">log</span>(key, obj[key]);
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Arrays -->
+    <div class="slide">
+        <h2>📦 Arrays</h2>
+        <pre><code><span class="keyword">let</span> fruits = [<span class="string">"apple"</span>, <span class="string">"banana"</span>, <span class="string">"mango"</span>];
+
+fruits[<span class="number">0</span>]          <span class="comment">// "apple" (index starts at 0)</span>
+fruits.<span class="function">length</span>      <span class="comment">// 3</span>
+fruits.<span class="function">push</span>(<span class="string">"orange"</span>)     <span class="comment">// Add to end</span>
+fruits.<span class="function">pop</span>()              <span class="comment">// Remove from end</span>
+fruits.<span class="function">unshift</span>(<span class="string">"kiwi"</span>)    <span class="comment">// Add to start</span>
+fruits.<span class="function">shift</span>()            <span class="comment">// Remove from start</span></code></pre>
+        <h3>Modern Array Methods</h3>
+        <pre><code><span class="keyword">const</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];
+
+nums.<span class="function">map</span>(n <span class="operator">=></span> n <span class="operator">*</span> <span class="number">2</span>)        <span class="comment">// [2, 4, 6, 8, 10]</span>
+nums.<span class="function">filter</span>(n <span class="operator">=></span> n <span class="operator">></span> <span class="number">2</span>)     <span class="comment">// [3, 4, 5]</span>
+nums.<span class="function">reduce</span>((a,b) <span class="operator">=></span> a<span class="operator">+</span>b)  <span class="comment">// 15</span>
+nums.<span class="function">find</span>(n <span class="operator">=></span> n <span class="operator">></span> <span class="number">3</span>)       <span class="comment">// 4</span>
+nums.<span class="function">includes</span>(<span class="number">3</span>)          <span class="comment">// true</span></code></pre>
+    </div>
+
+    <!-- Slide 12: Objects -->
+    <div class="slide slide-code">
+        <h2>🧱 Objects</h2>
+        <pre><code><span class="keyword">const</span> student = {
+    name: <span class="string">"Amadou"</span>,
+    age: <span class="number">20</span>,
+    grades: [<span class="number">85</span>, <span class="number">90</span>, <span class="number">78</span>],
+    <span class="function">getAverage</span>() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.grades.<span class="function">reduce</span>((a,b) <span class="operator">=></span> a<span class="operator">+</span>b) <span class="operator">/</span> <span class="keyword">this</span>.grades.<span class="function">length</span>;
+    }
+};
+
+student.name              <span class="comment">// "Amadou"</span>
+student[<span class="string">"age"</span>]            <span class="comment">// 20</span>
+student.<span class="function">getAverage</span>()      <span class="comment">// 84.33</span>
+student.school = <span class="string">"MIT"</span>;   <span class="comment">// Add property</span></code></pre>
+        <h3>Destructuring (ES6)</h3>
+        <pre><code><span class="keyword">const</span> {name, age} = student;
+<span class="keyword">const</span> [first, ...rest] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];  <span class="comment">// first=1, rest=[2,3]</span></code></pre>
+    </div>
+
+    <!-- Slide 13: DOM Manipulation -->
+    <div class="slide">
+        <h2>🌐 DOM Manipulation</h2>
+        <p><strong>DOM</strong> = Document Object Model (page structure as objects)</p>
+        <pre><code><span class="comment">// Selecting Elements</span>
+<span class="keyword">const</span> el = <span class="keyword">document</span>.<span class="function">getElementById</span>(<span class="string">'myId'</span>);
+<span class="keyword">const</span> els = <span class="keyword">document</span>.<span class="function">querySelectorAll</span>(<span class="string">'.myClass'</span>);
+<span class="keyword">const</span> btn = <span class="keyword">document</span>.<span class="function">querySelector</span>(<span class="string">'button'</span>);
+
+<span class="comment">// Modifying Elements</span>
+el.<span class="function">textContent</span> = <span class="string">"New text"</span>;
+el.<span class="function">innerHTML</span> = <span class="string">"&lt;strong&gt;Bold&lt;/strong&gt;"</span>;
+el.<span class="function">style</span>.color = <span class="string">"red"</span>;
+el.<span class="function">classList</span>.<span class="function">add</span>(<span class="string">"active"</span>);
+
+<span class="comment">// Events</span>
+btn.<span class="function">addEventListener</span>(<span class="string">'click'</span>, () <span class="operator">=></span> {
+    <span class="function">alert</span>(<span class="string">'Clicked!'</span>);
+});</code></pre>
+    </div>
+
+    <!-- Slide 14: Error Handling -->
+    <div class="slide slide-tips">
+        <h2>🛡️ Error Handling</h2>
+        <pre><code><span class="keyword">try</span> {
+    <span class="comment">// Code that might fail</span>
+    <span class="keyword">let</span> result = riskyOperation();
+} <span class="keyword">catch</span> (error) {
+    <span class="comment">// Handle the error</span>
+    <span class="keyword">console</span>.<span class="function">error</span>(<span class="string">"Error:"</span>, error.message);
+} <span class="keyword">finally</span> {
+    <span class="comment">// Always runs</span>
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"Cleanup done"</span>);
+}
+
+<span class="comment">// Throwing custom errors</span>
+<span class="keyword">function</span> <span class="function">divide</span>(a, b) {
+    <span class="keyword">if</span> (b <span class="operator">===</span> <span class="number">0</span>) <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">"Cannot divide by zero"</span>);
+    <span class="keyword">return</span> a <span class="operator">/</span> b;
+}</code></pre>
+    </div>
+
+    <!-- Slide 15: Async JavaScript -->
+    <div class="slide slide-code">
+        <h2>⏳ Asynchronous JavaScript</h2>
+        <div class="two-col">
+            <div>
+                <h3>Callbacks</h3>
+                <pre><code><span class="function">setTimeout</span>(() <span class="operator">=></span> {
+    <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"After 1s"</span>);
+}, <span class="number">1000</span>);</code></pre>
+                <h3>Promises</h3>
+                <pre><code><span class="function">fetch</span>(<span class="string">'/api/data'</span>)
+    .<span class="function">then</span>(r <span class="operator">=></span> r.<span class="function">json</span>())
+    .<span class="function">then</span>(d <span class="operator">=></span> <span class="keyword">console</span>.<span class="function">log</span>(d))
+    .<span class="function">catch</span>(e <span class="operator">=></span> <span class="keyword">console</span>.<span class="function">error</span>(e));</code></pre>
+            </div>
+            <div>
+                <h3>Async/Await (ES8)</h3>
+                <pre><code><span class="keyword">async function</span> <span class="function">getData</span>() {
+    <span class="keyword">try</span> {
+        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'/api'</span>);
+        <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="function">json</span>();
+        <span class="keyword">return</span> data;
+    } <span class="keyword">catch</span> (err) {
+        <span class="keyword">console</span>.<span class="function">error</span>(err);
+    }
+}</code></pre>
+            </div>
+        </div>
+        <div class="box">
+            <p>💡 <code>async/await</code> makes asynchronous code look synchronous and easier to read</p>
+        </div>
+    </div>
+
+    <!-- Slide 16: ES6+ Features -->
+    <div class="slide">
+        <h2>✨ ES6+ Modern Features</h2>
+        <div class="two-col">
+            <div>
+                <h3>Spread Operator</h3>
+                <pre><code><span class="keyword">const</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>];
+<span class="keyword">const</span> arr2 = [...arr1, <span class="number">3</span>, <span class="number">4</span>]; <span class="comment">// [1,2,3,4]</span>
+
+<span class="keyword">const</span> obj1 = {a: <span class="number">1</span>};
+<span class="keyword">const</span> obj2 = {...obj1, b: <span class="number">2</span>}; <span class="comment">// {a:1,b:2}</span></code></pre>
+                <h3>Optional Chaining</h3>
+                <pre><code><span class="keyword">const</span> val = obj?.prop?.nested;
+<span class="comment">// Returns undefined if any is null</span></code></pre>
+            </div>
+            <div>
+                <h3>Nullish Coalescing</h3>
+                <pre><code><span class="keyword">const</span> val = <span class="keyword">null</span> <span class="operator">??</span> <span class="string">"default"</span>;
+<span class="comment">// "default" (only for null/undefined)</span></code></pre>
+                <h3>Classes</h3>
+                <pre><code><span class="keyword">class</span> <span class="function">Animal</span> {
+    <span class="function">constructor</span>(name) {
+        <span class="keyword">this</span>.name = name;
+    }
+    <span class="function">speak</span>() {
+        <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">`${<span class="keyword">this</span>.name} sounds`</span>);
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 17: jQuery Introduction -->
+    <div class="slide slide-jquery">
+        <h2>💎 jQuery - Write Less, Do More</h2>
+        <p>jQuery is a fast, small JavaScript library that simplifies DOM manipulation</p>
+        <div class="two-col">
+            <div>
+                <h3>Include jQuery</h3>
+                <pre><code><span class="comment">&lt;!-- CDN --&gt;</span>
+&lt;script src=<span class="string">"https://code.jquery.com/
+jquery-3.7.1.min.js"</span>&gt;&lt;/script&gt;</code></pre>
+                <h3>Document Ready</h3>
+                <pre><code><span class="comment">// Wait for DOM to load</span>
+$(<span class="keyword">document</span>).<span class="function">ready</span>(<span class="keyword">function</span>() {
+    <span class="comment">// Your code here</span>
+});
+
+<span class="comment">// Short version</span>
+$(<span class="keyword">function</span>() {
+    <span class="comment">// Your code here</span>
+});</code></pre>
+            </div>
+            <div>
+                <h3>Why jQuery?</h3>
+                <ul>
+                    <li>Simplified DOM manipulation</li>
+                    <li>Easy event handling</li>
+                    <li>Built-in animations</li>
+                    <li>AJAX made simple</li>
+                    <li>Cross-browser compatibility</li>
+                </ul>
+                <div class="box" style="margin-top:15px">
+                    <p>💡 <code>$</code> is an alias for <code>jQuery</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 18: jQuery Selectors -->
+    <div class="slide slide-jquery">
+        <h2>🎯 jQuery Selectors</h2>
+        <table>
+            <tr><th>Vanilla JS</th><th>jQuery</th><th>Description</th></tr>
+            <tr><td><code>document.getElementById('id')</code></td><td><code>$('#id')</code></td><td>By ID</td></tr>
+            <tr><td><code>document.getElementsByClassName('c')</code></td><td><code>$('.c')</code></td><td>By Class</td></tr>
+            <tr><td><code>document.querySelectorAll('p')</code></td><td><code>$('p')</code></td><td>By Tag</td></tr>
+            <tr><td><code>document.querySelector('[data-x]')</code></td><td><code>$('[data-x]')</code></td><td>By Attribute</td></tr>
+        </table>
+        <pre><code><span class="comment">// Advanced selectors</span>
+$(<span class="string">'ul li:first'</span>)          <span class="comment">// First li in ul</span>
+$(<span class="string">'input:checked'</span>)         <span class="comment">// Checked inputs</span>
+$(<span class="string">'div.active'</span>)            <span class="comment">// Divs with class active</span>
+$(<span class="string">'p:contains("hello")'</span>)  <span class="comment">// P containing "hello"</span></code></pre>
+    </div>
+
+    <!-- Slide 19: jQuery DOM Manipulation -->
+    <div class="slide slide-jquery">
+        <h2>🔧 jQuery DOM Manipulation</h2>
+        <div class="two-col">
+            <div>
+                <h3>Getting/Setting Content</h3>
+                <pre><code><span class="comment">// Get text content</span>
+$(<span class="string">'#el'</span>).<span class="function">text</span>();
+
+<span class="comment">// Set text content</span>
+$(<span class="string">'#el'</span>).<span class="function">text</span>(<span class="string">'New text'</span>);
+
+<span class="comment">// Get/Set HTML</span>
+$(<span class="string">'#el'</span>).<span class="function">html</span>(<span class="string">'&lt;b&gt;Bold&lt;/b&gt;'</span>);
+
+<span class="comment">// Get/Set value (inputs)</span>
+$(<span class="string">'input'</span>).<span class="function">val</span>();
+$(<span class="string">'input'</span>).<span class="function">val</span>(<span class="string">'new value'</span>);</code></pre>
+            </div>
+            <div>
+                <h3>Modifying Elements</h3>
+                <pre><code><span class="comment">// CSS</span>
+$(<span class="string">'#el'</span>).<span class="function">css</span>(<span class="string">'color'</span>, <span class="string">'red'</span>);
+$(<span class="string">'#el'</span>).<span class="function">css</span>({color: <span class="string">'red'</span>, fontSize: <span class="string">'20px'</span>});
+
+<span class="comment">// Classes</span>
+$(<span class="string">'#el'</span>).<span class="function">addClass</span>(<span class="string">'active'</span>);
+$(<span class="string">'#el'</span>).<span class="function">removeClass</span>(<span class="string">'active'</span>);
+$(<span class="string">'#el'</span>).<span class="function">toggleClass</span>(<span class="string">'active'</span>);
+
+<span class="comment">// Attributes</span>
+$(<span class="string">'img'</span>).<span class="function">attr</span>(<span class="string">'src'</span>, <span class="string">'new.jpg'</span>);</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 20: jQuery Events -->
+    <div class="slide slide-jquery">
+        <h2>🎪 jQuery Events</h2>
+        <pre><code><span class="comment">// Click event</span>
+$(<span class="string">'#btn'</span>).<span class="function">click</span>(<span class="keyword">function</span>() {
+    <span class="function">alert</span>(<span class="string">'Clicked!'</span>);
+});
+
+<span class="comment">// Multiple events with on()</span>
+$(<span class="string">'#input'</span>).<span class="function">on</span>(<span class="string">'focus blur'</span>, <span class="keyword">function</span>(e) {
+    <span class="keyword">console</span>.<span class="function">log</span>(e.type);
+});
+
+<span class="comment">// Event delegation (for dynamic elements)</span>
+$(<span class="string">'ul'</span>).<span class="function">on</span>(<span class="string">'click'</span>, <span class="string">'li'</span>, <span class="keyword">function</span>() {
+    $(<span class="keyword">this</span>).<span class="function">toggleClass</span>(<span class="string">'selected'</span>);
+});
+
+<span class="comment">// Common events: click, dblclick, mouseenter, mouseleave,</span>
+<span class="comment">// keydown, keyup, submit, change, focus, blur, scroll</span></code></pre>
+    </div>
+
+    <!-- Slide 21: jQuery Effects -->
+    <div class="slide slide-jquery">
+        <h2>🎬 jQuery Effects & Animations</h2>
+        <div class="two-col">
+            <div>
+                <h3>Show/Hide</h3>
+                <pre><code>$(<span class="string">'#el'</span>).<span class="function">hide</span>();
+$(<span class="string">'#el'</span>).<span class="function">show</span>();
+$(<span class="string">'#el'</span>).<span class="function">toggle</span>();
+
+<span class="comment">// With duration (ms)</span>
+$(<span class="string">'#el'</span>).<span class="function">hide</span>(<span class="number">500</span>);
+$(<span class="string">'#el'</span>).<span class="function">show</span>(<span class="string">'slow'</span>);</code></pre>
+                <h3>Fade</h3>
+                <pre><code>$(<span class="string">'#el'</span>).<span class="function">fadeIn</span>();
+$(<span class="string">'#el'</span>).<span class="function">fadeOut</span>();
+$(<span class="string">'#el'</span>).<span class="function">fadeToggle</span>();
+$(<span class="string">'#el'</span>).<span class="function">fadeTo</span>(<span class="number">500</span>, <span class="number">0.5</span>);</code></pre>
+            </div>
+            <div>
+                <h3>Slide</h3>
+                <pre><code>$(<span class="string">'#el'</span>).<span class="function">slideUp</span>();
+$(<span class="string">'#el'</span>).<span class="function">slideDown</span>();
+$(<span class="string">'#el'</span>).<span class="function">slideToggle</span>();</code></pre>
+                <h3>Custom Animation</h3>
+                <pre><code>$(<span class="string">'#el'</span>).<span class="function">animate</span>({
+    opacity: <span class="number">0.5</span>,
+    left: <span class="string">'+=50px'</span>,
+    height: <span class="string">'200px'</span>
+}, <span class="number">1000</span>);</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 22: jQuery AJAX -->
+    <div class="slide slide-jquery">
+        <h2>📡 jQuery AJAX</h2>
+        <pre><code><span class="comment">// Simple GET request</span>
+$.<span class="function">get</span>(<span class="string">'/api/data'</span>, <span class="keyword">function</span>(response) {
+    <span class="keyword">console</span>.<span class="function">log</span>(response);
+});
+
+<span class="comment">// POST request</span>
+$.<span class="function">post</span>(<span class="string">'/api/submit'</span>, {name: <span class="string">'John'</span>, age: <span class="number">25</span>}, <span class="keyword">function</span>(res) {
+    <span class="keyword">console</span>.<span class="function">log</span>(res);
+});
+
+<span class="comment">// Full AJAX control</span>
+$.<span class="function">ajax</span>({
+    url: <span class="string">'/api/data'</span>,
+    method: <span class="string">'POST'</span>,
+    data: JSON.<span class="function">stringify</span>({id: <span class="number">1</span>}),
+    contentType: <span class="string">'application/json'</span>,
+    success: <span class="keyword">function</span>(res) { <span class="keyword">console</span>.<span class="function">log</span>(res); },
+    error: <span class="keyword">function</span>(err) { <span class="keyword">console</span>.<span class="function">error</span>(err); }
+});</code></pre>
+    </div>
+
+    <!-- Slide 23: jQuery vs Vanilla JS -->
+    <div class="slide">
+        <h2>⚔️ jQuery vs Vanilla JavaScript</h2>
+        <table>
+            <tr><th>Task</th><th>jQuery</th><th>Vanilla JS</th></tr>
+            <tr><td>Select element</td><td><code>$('#id')</code></td><td><code>document.getElementById('id')</code></td></tr>
+            <tr><td>Add class</td><td><code>$el.addClass('x')</code></td><td><code>el.classList.add('x')</code></td></tr>
+            <tr><td>Set text</td><td><code>$el.text('Hi')</code></td><td><code>el.textContent = 'Hi'</code></td></tr>
+            <tr><td>Click event</td><td><code>$el.click(fn)</code></td><td><code>el.addEventListener('click',fn)</code></td></tr>
+            <tr><td>AJAX</td><td><code>$.get(url,fn)</code></td><td><code>fetch(url).then(fn)</code></td></tr>
+        </table>
+        <div class="box" style="margin-top:15px">
+            <p>💡 Modern JS has caught up! Use jQuery for legacy projects or when you need its convenience. For new projects, consider vanilla JS or modern frameworks.</p>
+        </div>
+    </div>
+
+    <!-- Slide 24: Common Mistakes -->
+    <div class="slide slide-tips">
+        <h2>⚠️ Common Beginner Mistakes</h2>
+        <ul style="font-size:1.05em">
+            <li>Using <code>=</code> instead of <code>===</code> for comparison</li>
+            <li>Forgetting to convert inputs with <code>Number()</code> or <code>parseInt()</code></li>
+            <li>Arrays start at index <code>0</code>, not <code>1</code></li>
+            <li>Running code before DOM is loaded</li>
+            <li>Not handling <code>null</code> or <code>undefined</code></li>
+            <li>Forgetting parentheses when calling functions: <code>myFunc</code> vs <code>myFunc()</code></li>
+            <li>Confusing <code>let</code>/<code>const</code> scope with <code>var</code></li>
+            <li>Not using <code>async/await</code> properly with Promises</li>
+        </ul>
+        <div class="box" style="background:rgba(0,0,0,.3);margin-top:20px">
+            <p>💡 Place <code>&lt;script&gt;</code> at the end of <code>&lt;body&gt;</code> or use <code>defer</code> attribute</p>
+        </div>
+    </div>
+
+    <!-- Slide 25: Debugging Tips -->
+    <div class="slide">
+        <h2>🔧 Debugging Tips</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h4>1. console.log()</h4>
+                <p>Check values at each step</p>
+            </div>
+            <div class="card">
+                <h4>2. Read Errors</h4>
+                <p>They show line numbers!</p>
+            </div>
+            <div class="card">
+                <h4>3. Breakpoints</h4>
+                <p>Use DevTools debugger</p>
+            </div>
+        </div>
+        <pre><code><span class="comment">// Useful console methods</span>
+<span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"Message"</span>);
+<span class="keyword">console</span>.<span class="function">error</span>(<span class="string">"Error!"</span>);
+<span class="keyword">console</span>.<span class="function">warn</span>(<span class="string">"Warning"</span>);
+<span class="keyword">console</span>.<span class="function">table</span>([{a:<span class="number">1</span>}, {a:<span class="number">2</span>}]);  <span class="comment">// Display as table</span>
+<span class="keyword">console</span>.<span class="function">time</span>(<span class="string">'x'</span>); <span class="comment">/* code */</span> <span class="keyword">console</span>.<span class="function">timeEnd</span>(<span class="string">'x'</span>);  <span class="comment">// Measure time</span></code></pre>
+        <div class="box">
+            <p>💪 Errors are part of learning! Test code in small pieces.</p>
+        </div>
+    </div>
+
+    <!-- Slide 26: Conclusion -->
+    <div class="slide slide-title">
+        <h1>🎓 Keep Coding!</h1>
+        <div style="text-align:left;max-width:800px;margin:20px auto">
+            <h3>📚 Key Takeaways:</h3>
+            <ul style="font-size:1.1em">
+                <li>Practice daily (even 20 minutes helps)</li>
+                <li>Errors are normal and useful</li>
+                <li>Read docs: MDN, JavaScript.info</li>
+                <li>Build small personal projects</li>
+            </ul>
+            <h3 style="margin-top:25px">🚀 Next Steps:</h3>
+            <ul style="font-size:1.1em">
+                <li>Master ES6+ features</li>
+                <li>Learn a framework (React, Vue, Angular)</li>
+                <li>Explore Node.js for backend</li>
+                <li>Study TypeScript for type safety</li>
+            </ul>
+        </div>
+        <p style="margin-top:30px;font-size:1.8em">Thank You! 👏</p>
+    </div>
+</div>
+
+<div class="counter"><span id="cur">1</span> / <span id="tot">26</span></div>
+<div class="nav">
+    <button class="nav-btn" id="prev" onclick="prev()">◀ Previous</button>
+    <button class="nav-btn" id="next" onclick="next()">Next ▶</button>
+</div>
+
+<footer>
+    <p>Issika Aymeric Kouamé • <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">MDN JavaScript Docs</a> • <a href="https://jquery.com/" target="_blank">jQuery Official Site</a></p>
+</footer>
+
+<script>
+let c=0;const s=document.querySelectorAll('.slide'),t=s.length;
+document.getElementById('tot').textContent=t;
+function show(n){s.forEach(x=>x.classList.remove('active'));c=n<0?0:n>=t?t-1:n;s[c].classList.add('active');document.getElementById('cur').textContent=c+1;document.getElementById('prev').disabled=c===0;document.getElementById('next').disabled=c===t-1;}
+function next(){show(c+1)}function prev(){show(c-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next()}else if(e.key==='ArrowLeft'){e.preventDefault();prev()}});
+show(0);
+</script>
+</body>
+</html><span class="hidden">
