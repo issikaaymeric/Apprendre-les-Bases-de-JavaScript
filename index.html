@@ -26,7 +26,22 @@ body {
     background: #1a1a1a;
     overflow-y: auto; /* autorise le scroll global */
 }
-
+.swith_to_en {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+}
+.swith_to_en a {
+    background: #F7DF1E;
+    color: #323330;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(247, 223, 30, 0.4);
+    transition: all 0.3s;
+}
 /* =======================
    CONTENEUR PRINCIPAL
 ======================= */
@@ -403,6 +418,9 @@ table th {
     </style>
 </head>
 <body>
+    <div class="swith_to_en">
+        <a href="js-presentation-en.html">Switch to English 🇬🇧</a>
+    </div>
     <div class="presentation">
         <!-- Slide 1: Title -->
         <div class="slide slide-title active">
